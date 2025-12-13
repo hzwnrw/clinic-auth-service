@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinic-auth-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clinic-auth-service
+  template:
+    metadata:
+      labels:
+        app: clinic-auth-service
+    spec:
+      containers:
+        - name: clinic-auth-service
+          image: your-registry/clinic-auth-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://127.0.0.1:3306/auth_db?useSSL=false&serverTimezone=Asia/Kuala_Lumpur&allowPublicKeyRetrieval=true"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "user"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "password"
